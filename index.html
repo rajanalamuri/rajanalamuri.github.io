@@ -243,7 +243,7 @@ const nodes=[
 const edges=[["raw","ann"],["ann","ver"],["raw","ver"],["man","ver"],["ver","trn"],["trn","pub"],["ver","pub"],["field","raw"],["ver","teach"]];
 const s=document.getElementById("dagsvg"),box=document.getElementById("dag");
 const draw=()=>{
- const W=s.clientWidth,H=s.clientHeight,narrow=W<620;
+ const W=s.clientWidth,H=s.clientHeight,narrow=W<860;
  const nw=narrow?Math.min(W-32,300):Math.min(178,W*.17),nh=58;
  const pos={};
  nodes.forEach((n,i)=>{
