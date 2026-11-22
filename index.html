@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raj Alamuri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* VOICE personal site of an MLOps engineer: confident, exact, a little warm
+   IDEA a data-lineage graph: every project is a stage that raw data passes through on its way to a trusted model
+   PICTURE large lineage DAG in the hero, each node a project, click to jump to it
+   COLOUR pale pink ground, ink, teal for the main path, claret for findings; deep brown-black at night
+   TYPE Libre Franklin 800 display + Libre Franklin text, JetBrains Mono for commands only
+   LAYOUT laptop: name and bio across the top, graph full width under it; phone: name, graph (vertical), links */
+:root{color-scheme:light dark;--bg:light-dark(#ffe3dc,#1c1512);--ink:light-dark(#1a1817,#f6ece8);--mute:light-dark(#5b5350,#b9aaa4);--teal:light-dark(#0d7680,#4fc3c9);--claret:light-dark(#990f3d,#ff7aa2);--card:light-dark(#fff3ef,#261c18);--line:light-dark(#e7c4ba,#3d2e28);--band:light-dark(#fbd2c7,#241914)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Libre Franklin",system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.alt{background:var(--band)}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:center;padding:12px max(5vw,16px)}
+nav b{font-weight:800;margin-right:auto}
+nav a{text-decoration:none;font-weight:500;padding:6px 0}
+nav a:hover,nav a:focus-visible{color:var(--teal)}
+h1{font-weight:800;font-size:clamp(44px,7vw,84px);line-height:1;letter-spacing:-.03em;margin:0}
+h2{font-weight:800;font-size:clamp(30px,4vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance}
+h3{font-weight:700;font-size:21px;line-height:1.2;margin:4px 0 6px}
+.lead{font-size:19px;max-width:62ch;margin:14px 0 0}
+.sub{color:var(--mute);max-width:70ch;margin:0 0 26px}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:12px 48px;align-items:end}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid var(--ink);border-radius:999px;text-decoration:none;font-weight:600}
+.btn:hover,.btn:focus-visible{background:var(--ink);color:var(--bg)}
+.btn.solid{background:var(--teal);border-color:var(--teal);color:#fff}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px;margin:0}
+.facts div{border-top:2px solid var(--ink);padding-top:8px}
+.facts dt{font-size:14px;color:var(--mute)}
+.facts dd{margin:0;font-weight:700;font-size:18px}
+.fig{position:relative;min-height:330px;margin-top:34px}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+.fig a:focus-visible rect{stroke:var(--claret);stroke-width:3}
+.cap{font-size:14px;color:var(--mute);margin:8px 0 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column}
+.kind{font-size:14px;color:var(--teal);font-weight:700}
+.card p{margin:0 0 12px}
+.card .acts{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px 16px;padding-top:6px}
+.card .acts a{font-weight:700;color:var(--teal)}
+pre{overflow-x:auto;margin:0 0 12px;padding:10px 12px;border-radius:8px;background:var(--bg);font:14px/1.5 "JetBrains Mono",ui-monospace,monospace}
+.paper{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 48px;align-items:start}
+.find{list-style:none;margin:0;padding:0}
+.find li{padding:12px 0;border-top:1px solid var(--line)}
+.find strong{color:var(--claret)}
+.bars h3{margin-bottom:12px}
+.row{display:grid;grid-template-columns:9.5em minmax(0,1fr) 3.4em;gap:10px;align-items:center;margin:8px 0;font-size:15px}
+.track{height:12px;background:var(--line);border-radius:6px;position:relative}
+.track i{position:absolute;inset:0 auto 0 0;border-radius:6px}
+.leaky i{background:var(--claret)}.clean i{background:var(--teal)}
+.row b{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pair{margin-bottom:14px}.pair>span{font-size:14px;color:var(--mute)}
+.legend{display:flex;gap:18px;font-size:14px;color:var(--mute);margin-top:6px}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--teal)}
+.legend span:first-child::before{background:var(--claret)}
+.job{display:grid;grid-template-columns:minmax(0,14em) minmax(0,1fr);gap:8px 32px;padding:20px 0;border-top:2px solid var(--ink)}
+.job h3{margin:0}
+.job .who{color:var(--mute);font-size:15px}
+.job ul{margin:0;padding-left:1.1em}
+.job li{margin-bottom:6px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.tags span{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 12px;font-size:14px}
+.edu{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px}
+.edu div{border-top:2px solid var(--ink);padding-top:10px}
+.edu b{display:block;font-size:18px}
+.edu span{color:var(--mute);font-size:15px}
+footer{background:var(--ink);color:var(--bg)}
+footer h2{color:var(--bg)}
+footer .btn{border-color:var(--bg)}
+footer .btn:hover,footer .btn:focus-visible{background:var(--bg);color:var(--ink)}
+footer small{display:block;margin-top:28px;opacity:.75}
+@media(max-width:900px){.hero,.paper{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){nav .wrap{flex-wrap:nowrap;overflow-x:auto;gap:18px}nav a{flex:none}nav b{flex:none}.job{grid-template-columns:minmax(0,1fr)}.row{grid-template-columns:7.5em minmax(0,1fr) 3.2em}.facts{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pulse{display:none}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><b>Raj Alamuri</b><a href="#research">Research</a><a href="#writing">Writing</a><a href="#projects">Open source</a><a href="#work">Experience</a><a href="#education">Education</a><a href="#contact">Contact</a></div></nav>
+
+<header class="band">
+ <div class="wrap">
+  <div class="hero">
+   <div>
+    <h1>Raj Alamuri</h1>
+    <p class="lead">Senior MLOps Engineer in London, working across AI infrastructure, MLOps and data engineering. I build and run the compute, pipelines and cloud platforms behind multimodal ML, and open-source tools that make training data reproducible and honest.</p>
+    <div class="links">
+     <a class="btn solid" href="https://github.com/rajanalamuri">GitHub</a>
+     <a class="btn" href="#writing">Writing</a>
+     <a class="btn" href="#contact">Contact</a>
+    </div>
+   </div>
+   <dl class="facts">
+    <div><dt>Experience</dt><dd>8+ years</dd></div>
+    <div><dt>Focus</dt><dd>AI infrastructure, MLOps, data engineering</dd></div>
+    <div><dt>Data</dt><dd>Image, video, audio, sensors</dd></div>
+    <div><dt>Based in</dt><dd>London, UK</dd></div>
+   </dl>
+  </div>
+  <div class="fig" id="dag" role="img" aria-label="Lineage graph of Raj's work: raw data is annotated, versioned and checked, trained and shipped, then published; teaching and field sensing branch off."><svg id="dagsvg"></svg></div>
+  <p class="cap">How my work fits together, drawn as a data-lineage graph. Select a stage to jump to it.</p>
+ </div>
+</header>
+
+<section class="band alt" id="research">
+ <div class="wrap">
+  <h2>Leaky splits are common, and checking for them belongs in the commit</h2>
+  <p class="sub">Research on train/test leakage, measured across four domains with an open-source tool. Short paper, preprint in preparation.</p>
+  <div class="paper">
+   <div>
+    <h3>Catch Leaks at Commit Time: Dataset Versioning with Built-in Split Hygiene</h3>
+    <ul class="find">
+     <li><strong>24 near-duplicate test images</strong> are still in ciFAIR-10, the de-duplicated CIFAR-10; an independent pixel-correlation rater agrees on 28 of 29 flagged pairs.</li>
+     <li><strong>4 source recordings</strong> sit in two of ESC-50's five official folds, each under two different labels.</li>
+     <li><strong>Random window splits</strong> on UCI HAR report 2.3% error where holding out subjects gives 6.8%.</li>
+     <li><strong>Duplicates matter as much as the model memorises:</strong> removing them costs a regularised CNN under one point on the affected images and a 1-nearest-neighbour model 32.</li>
+    </ul>
+    <div class="links"><a class="btn" href="https://github.com/rajanalamuri/dataset-fingerprint/blob/main/benchmarks/RESULTS.md">Results and scripts</a><a class="btn" href="https://doi.org/10.5281/zenodo.24447086">Software DOI</a></div>
+   </div>
+   <div class="bars" id="bars"><h3>Accuracy: leaky split vs clean split</h3></div>
+  </div>
+ </div>
+</section>
+
+<section class="band" id="writing">
+ <div class="wrap">
+  <h2>Writing</h2>
+  <p class="sub">Practical MLOps, written for the engineers doing the work.</p>
+  <div class="grid">
+   <article class="card"><span class="kind">Article · Towards AI</span><h3>Dataset Versioning Without the Tools: A Practical Approach for Reproducible Machine Learning</h3>
+    <p>Versioning a small manifest that describes the data instead of the data itself, so every model can point to exactly what it was trained on.</p>
+    <div class="acts"><a href="https://pub.towardsai.net/dataset-versioning-without-the-tools-a-practical-approach-for-reproducible-machine-learning-53532468c941">Read on Towards AI</a></div></article>
+   <article class="card"><span class="kind">Article · Stackademic</span><h3>MLOps in Plain English: What It Is, What It Actually Looks Like, and Why Most Teams Get It Wrong</h3>
+    <p>What MLOps means in day-to-day practice, beyond the tooling, and where teams usually go wrong.</p>
+    <div class="acts"><a href="https://blog.stackademic.com/mlops-in-plain-english-what-it-is-what-it-actually-looks-like-and-why-most-teams-get-it-wrong-39fa88305b96">Read on Stackademic</a></div></article>
+  </div>
+ </div>
+</section>
+
+<section class="band alt" id="projects">
+ <div class="wrap">
+  <h2>Open source</h2>
+  <p class="sub">Tools for the parts of ML that happen before and after the model, plus two projects outside work.</p>
+  <div class="grid">
+   <article class="card" id="p-visualearn"><span class="kind">Education · live site</span><h3>VisuaLearn</h3>
+    <p>Free visual lessons on algorithms and data structures for children aged 8 to 14. Watch, predict, then finish offline with cards or paper. No accounts, ads, tracking, streaks or autoplay, and a daily time limit across the site.</p>
+    <div class="acts"><a href="https://visualearn.org">visualearn.org</a><a href="https://github.com/rajanalamuri/visualearn">GitHub</a></div></article>
+   <article class="card" id="p-annotator"><span class="kind">Web app · React, TypeScript, Konva</span><h3>Polygon Annotator</h3>
+    <p>A lightweight, offline annotation tool for computer-vision datasets: N-sided polygons with draggable vertices, a pixel magnifier, keyboard shortcuts and JSON export. Runs standalone in the browser or with Docker.</p>
+    <div class="acts"><a href="https://github.com/rajanalamuri/polygon-annotator">GitHub</a></div></article>
+   <article class="card" id="p-fingerprint"><span class="kind">Python library · Apache 2.0</span><h3>dataset-fingerprint</h3>
+    <p>A lockfile for training data. Versions any dataset (images, audio, video frames, radar, IMU, text, tables) on local disk, S3, Azure, GCS or Databricks, and checks every commit for leaky splits: copies, augmentations, look-alikes, the same recording on both sides, time overlap. Reports a leak rate you can gate CI on.</p>
+    <pre>pip install dataset-fingerprint</pre>
+    <div class="acts"><a href="https://github.com/rajanalamuri/dataset-fingerprint">GitHub</a><a href="https://pypi.org/project/dataset-fingerprint/">PyPI</a><a href="https://doi.org/10.5281/zenodo.24447086">DOI</a></div></article>
+   <article class="card" id="p-manifest"><span class="kind">Reference implementation</span><h3>Dataset manifest versioning</h3>
+    <p>The idea dataset-fingerprint grew from: version a small manifest describing the data instead of the data itself. One JSON file per version on S3, recorded in Git and created by CI, so every model can name exactly what it was trained on.</p>
+    <div class="acts"><a href="https://github.com/rajanalamuri/curly-invention">GitHub</a></div></article>
+   <article class="card" id="p-terrin"><span class="kind">In development</span><h3>Terrin</h3>
+    <p>Farm intelligence infrastructure: solar-powered ground sensing for crop health on smallholder farms. Field devices buffer readings offline and sync in batches to an API and dashboard.</p>
+    <div class="acts"><span>Repository private for now</span></div></article>
+  </div>
+ </div>
+</section>
+
+<section class="band" id="work">
+ <div class="wrap">
+  <h2>Experience</h2>
+  <p class="sub">AI infrastructure, MLOps and data engineering for large multimodal workloads.</p>
+  <div class="job"><div><h3>Senior MLOps Engineer</h3><div class="who">London · current</div></div>
+   <ul>
+    <li>MLOps technical lead embedded with a global automotive client: compute availability and data and training pipelines for varied AI workloads.</li>
+    <li>Multimodal image, video and audio ML infrastructure; shared embedding spaces (ImageBind) and vector retrieval on Atlas Vector Search.</li>
+    <li>Event-driven continuous-training pipelines on AWS EventBridge; dataset curation with Voxel51; MCP servers for ML tooling.</li>
+    <li>Data engineering: ingestion and processing pipelines for image, video, audio and sensor data, and data versioning for tamper-detection datasets.</li>
+    <li>AI infrastructure: compute availability for training and inference across varied AI workloads; owns Terraform modules for AWS and GCP, Kubernetes clusters, and GitLab CI/CD for pipelines and platform code.</li>
+   </ul></div>
+  <div class="job"><div><h3>Cognizant</h3><div class="who">Data and ML engineering · earlier</div></div>
+   <ul>
+    <li>Built ETL and predictive-modelling pipelines.</li>
+    <li>Automated incident response; resolved 45+ critical incidents and 450+ service requests.</li>
+   </ul></div>
+  <div class="tags"><span>AI infrastructure</span><span>MLOps</span><span>Data engineering</span><span>Infrastructure as code</span><span>AWS</span><span>Kubernetes</span><span>Terraform</span><span>Python</span><span>MLflow</span><span>Apache Airflow</span><span>GitLab CI/CD</span><span>Docker</span><span>GCP / Vertex AI</span><span>Voxel51</span><span>Vector search</span></div>
+ </div>
+</section>
+
+<section class="band alt" id="education">
+ <div class="wrap">
+  <h2>Education and certification</h2>
+  <div class="edu">
+   <div><b>MSc Data Science and Analytics</b><span>Royal Holloway, University of London</span></div>
+   <div><b>BTech Electrical and Electronics Engineering</b><span>VIT University, 2016</span></div>
+   <div><b>AWS Certified Machine Learning Engineer – Associate</b><span>Amazon Web Services</span></div>
+   <div><b>Bertelsmann Technology Scholarship</b><span>Awarded with Google</span></div>
+  </div>
+ </div>
+</section>
+
+<footer class="band" id="contact">
+ <div class="wrap">
+  <h2>Working on training data you need to trust?</h2>
+  <p class="lead">I'm happy to talk about MLOps, dataset leakage, or trying dataset-fingerprint on your data.</p>
+  <div class="links"><a class="btn" href="mailto:rajanalamuri@gmail.com">rajanalamuri@gmail.com</a><a class="btn" href="https://github.com/rajanalamuri">github.com/rajanalamuri</a></div>
+  <small>© 2026 Raj Alamuri</small>
+ </div>
+</footer>
+
+<script>
+{
+const bars=[
+ {t:"UCI HAR sensors",s:"random windows vs by subject, random forest",a:97.7,b:93.2},
+ {t:"ESC-50 audio",s:"random files vs by source clip, logistic regression",a:63.8,b:54.7},
+ {t:"CIFAR-10, 1-NN",s:"310 duplicated test images, with vs without their duplicates in train",a:96.5,b:64.8},
+ {t:"CIFAR-10, small CNN",s:"same images, same comparison",a:97.3,b:96.6}];
+const B=document.getElementById("bars");
+B.insertAdjacentHTML("beforeend",bars.map(r=>`<div class="pair"><span>${r.t}: ${r.s}</span>
+ <div class="row leaky"><span>Leaky</span><div class="track"><i style="width:${r.a}%"></i></div><b>${r.a}%</b></div>
+ <div class="row clean"><span>Clean</span><div class="track"><i style="width:${r.b}%"></i></div><b>${r.b}%</b></div></div>`).join("")+`<div class="legend"><span>Leaky split</span><span>Clean split</span></div>`);
+
+const nodes=[
+ {id:"raw",l:"Raw data",d:"cameras, mics, sensors",x:.06,y:.5,href:"#work"},
+ {id:"ann",l:"Annotate",d:"Polygon Annotator",x:.26,y:.24,href:"#p-annotator"},
+ {id:"ver",l:"Version + check",d:"dataset-fingerprint",x:.47,y:.5,href:"#p-fingerprint"},
+ {id:"man",l:"Manifest",d:"the first prototype",x:.47,y:.84,href:"#p-manifest"},
+ {id:"trn",l:"Train + ship",d:"production MLOps",x:.69,y:.24,href:"#work"},
+ {id:"pub",l:"Publish",d:"leakage research",x:.92,y:.5,href:"#research"},
+ {id:"teach",l:"Teach",d:"VisuaLearn",x:.69,y:.84,href:"#p-visualearn"},
+ {id:"field",l:"Sense",d:"Terrin, in the field",x:.26,y:.84,href:"#p-terrin"}];
+const edges=[["raw","ann"],["ann","ver"],["raw","ver"],["man","ver"],["ver","trn"],["trn","pub"],["ver","pub"],["field","raw"],["ver","teach"]];
+const s=document.getElementById("dagsvg"),box=document.getElementById("dag");
+const draw=()=>{
+ const W=s.clientWidth,H=s.clientHeight,narrow=W<620;
+ const nw=narrow?Math.min(W-32,300):Math.min(178,W*.17),nh=58;
+ const pos={};
+ nodes.forEach((n,i)=>{
+  if(narrow){const order=["field","raw","ann","man","ver","trn","teach","pub"];const k=order.indexOf(n.id);pos[n.id]={x:W/2,y:34+k*((H-68)/7)}}
+  else pos[n.id]={x:nw/2+8+n.x*(W-nw-16)/0.92*0.92/1,y:nh/2+6+n.y*(H-nh-12)};
+ });
+ if(!narrow)nodes.forEach(n=>{pos[n.id].x=nw/2+8+(n.x-.06)/(.92-.06)*(W-nw-16)});
+ const ed=edges.map(([a,b])=>{const p=pos[a],q=pos[b];
+  if(narrow)return `<path d="M${p.x-nw/2-10},${p.y} C${p.x-nw/2-38},${p.y} ${q.x-nw/2-38},${q.y} ${q.x-nw/2-10},${q.y}" fill="none" stroke="var(--line)" stroke-width="2"/>`;
+  const x1=p.x+(q.x>p.x?nw/2:q.x<p.x?-nw/2:0),y1=p.y+(q.x===p.x?(q.y>p.y?nh/2:-nh/2):0),x2=q.x-(q.x>p.x?nw/2:q.x<p.x?-nw/2:0),y2=q.y-(q.x===p.x?(q.y>p.y?nh/2:-nh/2):0),mx=(x1+x2)/2;
+  const main=false;
+  return `<path id="e-${a}-${b}" d="M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}" fill="none" stroke="var(--teal)" stroke-opacity=".55" stroke-width="2.5"/>`}).join("");
+ const pulse=narrow?"":`<circle class="pulse" r="6" fill="var(--claret)"><animateMotion dur="7s" repeatCount="indefinite"><mpath href="#e-raw-ann"/></animateMotion></circle>`;
+ const nd=nodes.map(n=>{const p=pos[n.id];return `<a href="${n.href}" aria-label="${n.l}: ${n.d}"><g transform="translate(${p.x-nw/2},${p.y-nh/2})">
+  <rect width="${nw}" height="${nh}" rx="12" fill="${n.main?"var(--teal)":"var(--card)"}" stroke="${n.main?"var(--teal)":"var(--ink)"}" stroke-width="${n.main?0:1.5}"/>
+  <text x="14" y="24" font-weight="800" font-size="15" fill="${n.main?"#fff":"var(--ink)"}">${n.l}</text>
+  <text x="14" y="43" font-size="13.5" fill="${n.main?"#fff":"var(--mute)"}">${n.d}</text></g></a>`}).join("");
+ s.setAttribute("viewBox",`0 0 ${W} ${H}`);
+ s.innerHTML=ed+pulse+nd;
+ box.style.minHeight=narrow?"560px":"";
+};
+const ro=new ResizeObserver(draw);ro.observe(box);
+}
+</script>
+</body>
+</html>
