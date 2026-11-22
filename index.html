@@ -84,13 +84,32 @@ footer h2{color:var(--bg)}
 footer .btn{border-color:var(--bg)}
 footer .btn:hover,footer .btn:focus-visible{background:var(--bg);color:var(--ink)}
 footer small{display:block;margin-top:28px;opacity:.75}
+
+.mosaic{display:grid;grid-template-columns:repeat(24,minmax(0,1fr));grid-auto-rows:46px;gap:10px;margin-top:8px}
+.tile{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;border-radius:10px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:clamp(14px,1.5vw,18px);line-height:1.2;color:var(--ink);cursor:pointer;transition:transform .18s,background .18s,border-color .18s,box-shadow .18s;animation:pop .5s both}
+.tile:hover,.tile:focus-visible{transform:translateY(-3px);border-color:var(--teal);box-shadow:0 6px 0 color-mix(in srgb,var(--teal) 25%,transparent)}
+.tile:focus-visible{outline:3px solid var(--claret);outline-offset:2px}
+.tile[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:#fff}
+.tile.core{background:var(--ink);color:var(--bg);border-color:var(--ink);font-size:14px}
+.tile.core[aria-pressed=true]{background:var(--claret);border-color:var(--claret);color:#fff}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.detail{display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr);gap:8px 32px;margin-top:22px;padding:22px;border-radius:14px;background:var(--card);border:1px solid var(--line);min-height:180px}
+.detail h3{margin:0;font-size:24px}
+.detail .tag{font-size:14px;color:var(--teal);font-weight:700}
+.detail ul{margin:0;padding-left:1.1em}
+.detail li{margin-bottom:6px}
+.detail .acts{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:10px}
+.detail .acts a{font-weight:700;color:var(--teal)}
+.credit{font-size:14px;color:var(--mute);margin:10px 0 0}
+@media(max-width:860px){.mosaic{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto}.tile{grid-column:auto!important;grid-row:auto!important;min-height:56px}.tile.core{grid-column:1/-1!important;order:-1}.detail{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.tile{animation:none;transition:none}}
 @media(max-width:900px){.hero,.paper{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){nav .wrap{flex-wrap:nowrap;overflow-x:auto;gap:18px}nav a{flex:none}nav b{flex:none}.job{grid-template-columns:minmax(0,1fr)}.row{grid-template-columns:7.5em minmax(0,1fr) 3.2em}.facts{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pulse{display:none}}
 </style>
 </head>
 <body>
-<nav><div class="wrap"><b>Raj Alamuri</b><a href="#research">Research</a><a href="#writing">Writing</a><a href="#projects">Open source</a><a href="#work">Experience</a><a href="#education">Education</a><a href="#contact">Contact</a></div></nav>
+<nav><div class="wrap"><b>Raj Alamuri</b><a href="#mlops">MLOps</a><a href="#research">Research</a><a href="#writing">Writing</a><a href="#projects">Open source</a><a href="#work">Experience</a><a href="#education">Education</a><a href="#contact">Contact</a></div></nav>
 
 <header class="band">
  <div class="wrap">
@@ -117,7 +136,18 @@ footer small{display:block;margin-top:28px;opacity:.75}
  </div>
 </header>
 
-<section class="band alt" id="research">
+
+<section class="band alt" id="mlops">
+ <div class="wrap">
+  <h2>The model is the smallest box</h2>
+  <p class="sub">In a real ML system, the training code is a sliver of the work. Everything around it is where I spend my time. Select an area to see what I do there.</p>
+  <div class="mosaic" id="mosaic" role="group" aria-label="Areas of an ML system"></div>
+  <div class="detail" id="detail" aria-live="polite"></div>
+  <p class="credit">After the diagram in Sculley et al., "Hidden Technical Debt in Machine Learning Systems", NeurIPS 2015.</p>
+ </div>
+</section>
+
+<section class="band" id="research">
  <div class="wrap">
   <h2>Leaky splits are common, and checking for them belongs in the commit</h2>
   <p class="sub">Research on train/test leakage, measured across four domains with an open-source tool. Short paper, preprint in preparation.</p>
@@ -137,7 +167,7 @@ footer small{display:block;margin-top:28px;opacity:.75}
  </div>
 </section>
 
-<section class="band" id="writing">
+<section class="band alt" id="writing">
  <div class="wrap">
   <h2>Writing</h2>
   <p class="sub">Practical MLOps, written for the engineers doing the work.</p>
@@ -152,7 +182,7 @@ footer small{display:block;margin-top:28px;opacity:.75}
  </div>
 </section>
 
-<section class="band alt" id="projects">
+<section class="band" id="projects">
  <div class="wrap">
   <h2>Open source</h2>
   <p class="sub">Tools for the parts of ML that happen before and after the model, plus two projects outside work.</p>
@@ -177,7 +207,7 @@ footer small{display:block;margin-top:28px;opacity:.75}
  </div>
 </section>
 
-<section class="band" id="work">
+<section class="band alt" id="work">
  <div class="wrap">
   <h2>Experience</h2>
   <p class="sub">AI infrastructure, MLOps and data engineering for large multimodal workloads.</p>
@@ -198,7 +228,7 @@ footer small{display:block;margin-top:28px;opacity:.75}
  </div>
 </section>
 
-<section class="band alt" id="education">
+<section class="band" id="education">
  <div class="wrap">
   <h2>Education and certification</h2>
   <div class="edu">
@@ -226,6 +256,29 @@ const bars=[
  {t:"ESC-50 audio",s:"random files vs by source clip, logistic regression",a:63.8,b:54.7},
  {t:"CIFAR-10, 1-NN",s:"310 duplicated test images, with vs without their duplicates in train",a:96.5,b:64.8},
  {t:"CIFAR-10, small CNN",s:"same images, same comparison",a:97.3,b:96.6}];
+
+const areas=[
+ {k:"config",t:"Configuration",c:"1/5",r:"3/10",tag:"Infrastructure as code",w:["Terraform modules for AWS and GCP that I write and own","Pipelines, environments and releases declared in GitLab CI/CD","Dataset versions described by a manifest, not copied by hand"],l:[["Manifest versioning","#p-manifest"]]},
+ {k:"collect",t:"Data collection",c:"6/11",r:"1/6",tag:"Data engineering",w:["Ingestion and processing pipelines for image, video, audio and sensor data","Field devices that buffer readings offline and sync in batches (Terrin)"],l:[["Terrin","#p-terrin"]]},
+ {k:"test",t:"Testing and debugging",c:"12/16",r:"2/6",tag:"Quality gates",w:["Unit, integration and security test suites in CI","Integration tests against S3, Azure and GCS emulators","A leak-rate threshold that fails the build"],l:[["dataset-fingerprint","#p-fingerprint"]]},
+ {k:"resource",t:"Resource management",c:"17/21",r:"1/6",tag:"AI infrastructure",w:["Compute availability for training and inference across varied AI workloads","Kubernetes clusters for ML jobs","Capacity on AWS and GCP / Vertex AI"],l:[]},
+ {k:"verify",t:"Data verification",c:"6/11",r:"6/9",tag:"Data quality",w:["Train/test leakage checks at commit time: copies, augmentations, look-alikes, shared recordings, time overlap","Byte-level integrity checks that catch a single changed pixel"],l:[["dataset-fingerprint","#p-fingerprint"],["Research","#research"]]},
+ {k:"core",t:"ML code",c:"12/14",r:"6/8",tag:"The small part",core:1,w:["The model and its training loop: important, and a small fraction of a production system","Everything else on this map decides whether it can be trusted, reproduced and run"],l:[]},
+ {k:"analysis",t:"Model analysis",c:"15/22",r:"6/8",tag:"Evaluation",w:["Measuring how much leakage inflates scores: sensors, audio, images, text","Evaluating on clean, group-aware splits"],l:[["Research","#research"]]},
+ {k:"serve",t:"Serving infrastructure",c:"22/25",r:"4/9",tag:"Retrieval and serving",w:["Vector retrieval on shared embedding spaces (ImageBind, Atlas Vector Search)","MCP servers that put ML tooling in front of engineers"],l:[]},
+ {k:"process",t:"Process management",c:"15/22",r:"8/11",tag:"Orchestration",w:["Event-driven continuous-training pipelines on AWS EventBridge","Workflow orchestration with Apache Airflow"],l:[]},
+ {k:"feature",t:"Feature engineering",c:"6/14",r:"9/13",tag:"Representations",w:["Shared multimodal embedding spaces across image, video and audio","Processing raw sensor streams into model-ready windows"],l:[]},
+ {k:"auto",t:"Automation",c:"1/5",r:"10/12",tag:"CI/CD",w:["Continuous training and delivery pipelines","Releases built once, attested and published without stored secrets"],l:[]},
+ {k:"meta",t:"Metadata management",c:"14/22",r:"11/13",tag:"Lineage",w:["Dataset manifests, fingerprints and lineage linking each model to its exact data","Experiment tracking with MLflow; dataset curation with Voxel51"],l:[["dataset-fingerprint","#p-fingerprint"]]},
+ {k:"monitor",t:"Monitoring",c:"22/25",r:"9/12",tag:"Operations",w:["Drift checks: verify a dataset still matches its manifest","Automated incident response: 45+ critical incidents and 450+ service requests resolved"],l:[]}];
+const M=document.getElementById("mosaic"),D=document.getElementById("detail");
+M.innerHTML=areas.map((a,i)=>`<button class="tile${a.core?" core":""}" id="t-${a.k}" data-k="${a.k}" aria-pressed="false" style="grid-column:${a.c};grid-row:${a.r};animation-delay:${i*45}ms">${a.t}</button>`).join("");
+const show=k=>{const a=areas.find(x=>x.k===k);M.querySelectorAll(".tile").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===k));
+ D.innerHTML=`<div><span class="tag">${a.tag}</span><h3>${a.t}</h3></div><div><ul>${a.w.map(x=>`<li>${x}</li>`).join("")}</ul>${a.l.length?`<div class="acts">${a.l.map(([n,h])=>`<a href="${h}">${n}</a>`).join("")}</div>`:""}</div>`};
+M.addEventListener("click",e=>{const b=e.target.closest(".tile");if(b)show(b.dataset.k)});
+M.addEventListener("mouseover",e=>{const b=e.target.closest(".tile");if(b&&matchMedia("(hover:hover)").matches)show(b.dataset.k)});
+M.addEventListener("focusin",e=>{const b=e.target.closest(".tile");if(b)show(b.dataset.k)});
+show("core");
 const B=document.getElementById("bars");
 B.insertAdjacentHTML("beforeend",bars.map(r=>`<div class="pair"><span>${r.t}: ${r.s}</span>
  <div class="row leaky"><span>Leaky</span><div class="track"><i style="width:${r.a}%"></i></div><b>${r.a}%</b></div>
