@@ -84,8 +84,7 @@ footer .btn{border-color:var(--bg)}
 footer .btn:hover,footer .btn:focus-visible{background:var(--bg);color:var(--ink)}
 footer small{display:block;margin-top:28px;opacity:.75}
 
-.mosaic{position:relative;height:clamp(560px,50vw,660px);margin-top:8px}
-.mosaic .tile{position:absolute}
+.mosaic{display:grid;grid-template-columns:repeat(24,minmax(0,1fr));grid-template-rows:repeat(3,4fr) repeat(7,3fr);height:clamp(600px,54vw,680px);gap:10px;margin-top:8px;padding:14px;border:1.5px solid var(--ink);border-radius:18px;background:var(--band)}
 .tile{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;border-radius:10px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:clamp(14px,1.5vw,18px);line-height:1.2;color:var(--ink);cursor:pointer;transition:transform .18s,background .18s,border-color .18s,box-shadow .18s;animation:pop .5s both}
 .tile:hover,.tile:focus-visible{transform:translateY(-3px);border-color:var(--teal);box-shadow:0 6px 0 color-mix(in srgb,var(--teal) 25%,transparent)}
 .tile:focus-visible{outline:3px solid var(--claret);outline-offset:2px}
@@ -103,7 +102,7 @@ footer small{display:block;margin-top:28px;opacity:.75}
 .detail .acts{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:10px}
 .detail .acts a{font-weight:700;color:var(--teal)}
 .credit{font-size:14px;color:var(--mute);margin:10px 0 0}
-@media(max-width:860px){.mosaic{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;height:auto}.mosaic .tile{position:static;min-height:56px}.tile.core{grid-column:1/-1;order:-1}.detail{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:860px){.mosaic{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;height:auto;padding:10px}.tile{grid-column:auto!important;grid-row:auto!important;min-height:56px}.tile.core{grid-column:1/-1;order:-1}.detail{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){.tile{animation:none;transition:none}}
 .toc{margin-top:40px;border-top:2px solid var(--ink);padding-top:16px}
 .toc h2{font-size:22px;margin:0 0 6px}
@@ -254,51 +253,29 @@ footer small{display:block;margin-top:28px;opacity:.75}
 {
 
 const areas=[
- {k:"collect",t:"Data collection",c:"1/5",r:"1/3",tag:"Data engineering",w:["Collecting image, video, audio and sensor data from source systems into training-ready storage","Offline-first capture on field devices that buffer readings and sync in batches"],st:["Python","AWS","S3"],l:[["Terrin","#p-terrin"]]},
- {k:"tf",t:"Terraform platform",c:"1/5",r:"3/9",tag:"Infrastructure",w:["Write and own Terraform modules for the AWS and GCP infrastructure behind ML workloads","Environments, networking and compute declared as code and promoted through CI"],st:["Terraform","AWS","GCP"],l:[]},
- {k:"data",t:"Multimodal data pipelines",c:"6/11",r:"1/6",tag:"Data engineering",w:["Ingestion and processing pipelines for image, video and audio data used in training","Data processing that supports varied AI workloads"],st:["Python","AWS","Docker"],l:[]},
- {k:"cicd",t:"CI/CD for ML",c:"12/16",r:"2/6",tag:"MLOps",w:["GitLab CI/CD for pipelines, training code and platform code","Containerised jobs built once and promoted between environments"],st:["GitLab CI/CD","Docker"],l:[]},
- {k:"compute",t:"Compute for training and inference",c:"17/21",r:"1/6",tag:"AI infrastructure",w:["Compute availability for training and inference across varied AI workloads","Kubernetes clusters running ML jobs on AWS and GCP / Vertex AI"],st:["Kubernetes","AWS","Vertex AI"],l:[]},
- {k:"version",t:"Dataset versioning",c:"6/11",r:"6/9",tag:"Data engineering",w:["Dataset versioning so every model traces back to the exact data it was trained on","Manifest-based approach, written up for Towards AI"],st:["Manifests","S3","Python"],l:[["Article","#writing"],["Manifest versioning","#p-manifest"]]},
- {k:"lead",t:"MLOps technical lead, global automotive client",c:"11/15",r:"6/9",tag:"Role",core:1,w:["Embedded with the client as their MLOps technical lead","MLOps architecture: compute availability, data and training pipelines for varied AI workloads, and the data processing around them"],st:["MLOps architecture","AWS","GCP"],l:[["Experience","#work"]]},
- {k:"embed",t:"Multimodal embeddings and vector search",c:"15/22",r:"6/8",tag:"ML systems",w:["Shared embedding space across image, video and audio","Vector retrieval over those embeddings"],st:["Embeddings","Vector search","Python"],l:[]},
- {k:"mcp",t:"MCP servers for ML tooling",c:"22/25",r:"4/9",tag:"Developer platform",w:["MCP servers that expose ML tooling and data to engineers and AI assistants"],st:["MCP","Python"],l:[]},
- {k:"ct",t:"Event-driven continuous training",c:"15/22",r:"8/11",tag:"MLOps",w:["Retraining triggered by events such as new data or schedules","Pipelines run end to end without manual hand-offs"],st:["AWS","Event-driven","Airflow"],l:[]},
- {k:"curate",t:"Dataset curation",c:"6/14",r:"9/13",tag:"Data quality",w:["Curating and inspecting image and video datasets before training"],st:["Python","Data quality"],l:[]},
- {k:"orch",t:"Orchestration and tracking",c:"1/5",r:"9/11",tag:"MLOps",w:["Workflow orchestration with Apache Airflow","Experiment and model tracking with MLflow"],st:["Airflow","MLflow"],l:[]},
- {k:"etl",t:"ETL and predictive models",c:"1/5",r:"11/13",tag:"Cognizant",w:["Built ETL and predictive-modelling pipelines"],st:["Python","SQL","ETL"],l:[]},
- {k:"oss",t:"Open-source tools and writing",c:"14/22",r:"11/13",tag:"Independent",w:["dataset-fingerprint, Polygon Annotator and VisuaLearn","Articles on dataset versioning and MLOps"],st:["Python","React","PyPI"],l:[["Open source","#projects"],["Writing","#writing"]]},
- {k:"incident",t:"Incident automation",c:"22/25",r:"9/12",tag:"Cognizant",w:["Automated incident response","Resolved 45+ critical incidents and 450+ service requests"],st:["Automation","Monitoring"],l:[]}];
+ {k:"collect",t:"Data collection",c:"9/13",r:"9/11",tag:"Data engineering",w:["Collecting image, video, audio and sensor data from source systems into training-ready storage","Offline-first capture on field devices that buffer readings and sync in batches"],st:["Python","AWS","S3"],l:[["Terrin","#p-terrin"]]},
+ {k:"tf",t:"Terraform platform",c:"21/25",r:"1/7",tag:"Infrastructure",w:["Write and own Terraform modules for the AWS and GCP infrastructure behind ML workloads","Environments, networking and compute declared as code and promoted through CI"],st:["Terraform","AWS","GCP"],l:[]},
+ {k:"data",t:"Multimodal data pipelines",c:"1/7",r:"4/9",tag:"Data engineering",w:["Ingestion and processing pipelines for image, video and audio data used in training","Data processing that supports varied AI workloads"],st:["Python","AWS","Docker"],l:[]},
+ {k:"cicd",t:"CI/CD for ML",c:"21/25",r:"7/11",tag:"MLOps",w:["GitLab CI/CD for pipelines, training code and platform code","Containerised jobs built once and promoted between environments"],st:["GitLab CI/CD","Docker"],l:[]},
+ {k:"compute",t:"Compute for training and inference",c:"7/11",r:"4/9",tag:"AI infrastructure",w:["Compute availability for training and inference across varied AI workloads","Kubernetes clusters running ML jobs on AWS and GCP / Vertex AI"],st:["Kubernetes","AWS","Vertex AI"],l:[]},
+ {k:"version",t:"Dataset versioning",c:"16/21",r:"1/4",tag:"Data engineering",w:["Dataset versioning so every model traces back to the exact data it was trained on","Manifest-based approach, written up for Towards AI"],st:["Manifests","S3","Python"],l:[["Article","#writing"],["Manifest versioning","#p-manifest"]]},
+ {k:"lead",t:"MLOps technical lead, global automotive client",c:"11/15",r:"4/7",tag:"Role",core:1,w:["Embedded with the client as their MLOps technical lead","MLOps architecture: compute availability, data and training pipelines for varied AI workloads, and the data processing around them"],st:["MLOps architecture","AWS","GCP"],l:[["Experience","#work"]]},
+ {k:"embed",t:"Multimodal embeddings and vector search",c:"11/18",r:"7/9",tag:"ML systems",w:["Shared embedding space across image, video and audio","Vector retrieval over those embeddings"],st:["Embeddings","Vector search","Python"],l:[]},
+ {k:"mcp",t:"MCP servers for ML tooling",c:"18/21",r:"4/9",tag:"Developer platform",w:["MCP servers that expose ML tooling and data to engineers and AI assistants"],st:["MCP","Python"],l:[]},
+ {k:"ct",t:"Event-driven continuous training",c:"9/16",r:"1/4",tag:"MLOps",w:["Retraining triggered by events such as new data or schedules","Pipelines run end to end without manual hand-offs"],st:["AWS","Event-driven","Airflow"],l:[]},
+ {k:"curate",t:"Dataset curation",c:"1/9",r:"1/4",tag:"Data quality",w:["Curating and inspecting image and video datasets before training"],st:["Python","Data quality"],l:[]},
+ {k:"orch",t:"Orchestration and tracking",c:"13/17",r:"9/11",tag:"MLOps",w:["Workflow orchestration with Apache Airflow","Experiment and model tracking with MLflow"],st:["Airflow","MLflow"],l:[]},
+ {k:"etl",t:"ETL and predictive models",c:"17/21",r:"9/11",tag:"Cognizant",w:["Built ETL and predictive-modelling pipelines"],st:["Python","SQL","ETL"],l:[]},
+ {k:"oss",t:"Open-source tools and writing",c:"1/9",r:"9/11",tag:"Independent",w:["dataset-fingerprint, Polygon Annotator and VisuaLearn","Articles on dataset versioning and MLOps"],st:["Python","React","PyPI"],l:[["Open source","#projects"],["Writing","#writing"]]},
+ {k:"incident",t:"Incident automation",c:"15/18",r:"4/7",tag:"Cognizant",w:["Automated incident response","Resolved 45+ critical incidents and 450+ service requests"],st:["Automation","Monitoring"],l:[]}];
 const M=document.getElementById("mosaic"),D=document.getElementById("detail");
-M.innerHTML=areas.map((a,i)=>`<button class="tile${a.core?" core":""}" id="t-${a.k}" data-k="${a.k}" aria-pressed="false" style="animation-delay:${i*45}ms">${a.t}</button>`).join("");
+M.innerHTML=areas.map((a,i)=>`<button class="tile${a.core?" core":""}" id="t-${a.k}" data-k="${a.k}" aria-pressed="false" style="grid-column:${a.c};grid-row:${a.r};animation-delay:${i*45}ms">${a.t}</button>`).join("");
 const show=k=>{const a=areas.find(x=>x.k===k);M.querySelectorAll(".tile").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===k));
  D.innerHTML=`<div><span class="tag">${a.tag}</span><h3>${a.t}</h3><div class="stack-tags">${a.st.map(x=>`<span>${x}</span>`).join("")}</div></div><div><ul>${a.w.map(x=>`<li>${x}</li>`).join("")}</ul>${a.l.length?`<div class="acts">${a.l.map(([n,h])=>`<a href="${h}">${n}</a>`).join("")}</div>`:""}</div>`};
 M.addEventListener("click",e=>{const b=e.target.closest(".tile");if(b)show(b.dataset.k)});
 M.addEventListener("mouseover",e=>{const b=e.target.closest(".tile");if(b&&matchMedia("(hover:hover)").matches)show(b.dataset.k)});
 M.addEventListener("focusin",e=>{const b=e.target.closest(".tile");if(b)show(b.dataset.k)});
 show("lead");
-const area=a=>{const[c0,c1]=a.c.split("/").map(Number),[r0,r1]=a.r.split("/").map(Number);return (c1-c0)*(r1-r0)};
-const squarify=(items,x,y,w,h,out)=>{
- if(!items.length)return;
- const total=items.reduce((t,i)=>t+i.v,0),scale=w*h/total;
- let row=[],rest=items.slice();const side=()=>Math.min(w,h);
- const worst=(r,s)=>{const sum=r.reduce((t,i)=>t+i.v*scale,0),mx=Math.max(...r.map(i=>i.v*scale)),mn=Math.min(...r.map(i=>i.v*scale));return Math.max(s*s*mx/(sum*sum),sum*sum/(s*s*mn))};
- while(rest.length){const nxt=rest[0];if(!row.length||worst(row.concat(nxt),side())<=worst(row,side())){row.push(nxt);rest.shift()}else break}
- const sum=row.reduce((t,i)=>t+i.v*scale,0);
- if(w>=h){const cw=sum/h;let yy=y;row.forEach(i=>{const ih=i.v*scale/cw;out.push({k:i.k,x,y:yy,w:cw,h:ih});yy+=ih});squarify(rest,x+cw,y,w-cw,h,out)}
- else{const rh=sum/w;let xx=x;row.forEach(i=>{const iw=i.v*scale/rh;out.push({k:i.k,x:xx,y,w:iw,h:rh});xx+=iw});squarify(rest,x,y+rh,w,h-rh,out)}
-};
-const order=["lead","data","tf","curate","compute","ct","cicd","version","mcp","embed","oss","incident","collect","orch","etl"];
-const lay=()=>{
- const wide=M.clientWidth>=860-0&&matchMedia("(min-width:861px)").matches;
- M.querySelectorAll(".tile").forEach(b=>{if(!wide){b.style.left=b.style.top=b.style.width=b.style.height=b.style.fontSize=""}});
- if(!wide)return;
- const W=M.clientWidth,H=M.clientHeight,g=5,out=[];
- const items=order.map(k=>({k,v:area(areas.find(a=>a.k===k))})).sort((a,b)=>b.v-a.v);
- squarify(items,0,0,W,H,out);
- out.forEach(o=>{const b=document.getElementById("t-"+o.k);Object.assign(b.style,{left:(o.x+g)+"px",top:(o.y+g)+"px",width:(o.w-2*g)+"px",height:(o.h-2*g)+"px",fontSize:o.w<150?"14px":""})});
-};
-const mro=new ResizeObserver(lay);mro.observe(M);
 
 
 const nodes=[
