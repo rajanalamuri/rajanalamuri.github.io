@@ -62,7 +62,6 @@ pre{overflow-x:auto;margin:0 0 12px;padding:10px 12px;border-radius:8px;backgrou
 .row{display:grid;grid-template-columns:9.5em minmax(0,1fr) 3.4em;gap:10px;align-items:center;margin:8px 0;font-size:15px}
 .track{height:12px;background:var(--line);border-radius:6px;position:relative}
 .track i{position:absolute;inset:0 auto 0 0;border-radius:6px}
-.leaky i{background:var(--claret)}.clean i{background:var(--teal)}
 .row b{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .pair{margin-bottom:14px}.pair>span{font-size:14px;color:var(--mute)}
 .legend{display:flex;gap:18px;font-size:14px;color:var(--mute);margin-top:6px}
@@ -105,13 +104,24 @@ footer small{display:block;margin-top:28px;opacity:.75}
 .credit{font-size:14px;color:var(--mute);margin:10px 0 0}
 @media(max-width:860px){.mosaic{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto}.tile{grid-column:auto!important;grid-row:auto!important;min-height:56px}.tile.core{grid-column:1/-1!important;order:-1}.detail{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){.tile{animation:none;transition:none}}
+.toc{margin-top:40px;border-top:2px solid var(--ink);padding-top:16px}
+.toc h2{font-size:22px;margin:0 0 6px}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,auto);grid-auto-flow:column;gap:0 48px;counter-reset:t}
+.toc li{counter-increment:t}
+.toc a{display:flex;align-items:baseline;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none;min-height:44px}
+.toc a::before{content:counter(t);font-weight:800;color:var(--teal);min-width:1.2em}
+.toc b{font-weight:700;white-space:nowrap}
+.toc .dots{flex:1;border-bottom:2px dotted var(--line);transform:translateY(-4px)}
+.toc span.d{color:var(--mute);font-size:15px;text-align:right}
+.toc a:hover b,.toc a:focus-visible b{color:var(--teal)}
+@media(max-width:700px){.toc ol{grid-template-columns:minmax(0,1fr);grid-template-rows:none;grid-auto-flow:row}.toc .dots{display:none}.toc a{flex-wrap:wrap}.toc span.d{text-align:left;flex-basis:100%;padding-left:calc(1.2em + 10px)}}
 @media(max-width:900px){.hero,.paper{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){nav .wrap{flex-wrap:nowrap;overflow-x:auto;gap:18px}nav a{flex:none}nav b{flex:none}.job{grid-template-columns:minmax(0,1fr)}.row{grid-template-columns:7.5em minmax(0,1fr) 3.2em}.facts{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pulse{display:none}}
 </style>
 </head>
 <body>
-<nav><div class="wrap"><b>Raj Alamuri</b><a href="#mlops">Work</a><a href="#research">Research</a><a href="#writing">Writing</a><a href="#projects">Open source</a><a href="#work">Experience</a><a href="#education">Education</a><a href="#contact">Contact</a></div></nav>
+<nav><div class="wrap"><b>Raj Alamuri</b><a href="#mlops">Work</a><a href="#writing">Writing</a><a href="#projects">Open source</a><a href="#work">Experience</a><a href="#education">Education</a><a href="#contact">Contact</a></div></nav>
 
 <header class="band">
  <div class="wrap">
@@ -135,6 +145,14 @@ footer small{display:block;margin-top:28px;opacity:.75}
   </div>
   <div class="fig" id="dag" role="img" aria-label="Lineage graph of Raj's work: raw data is annotated, versioned and checked, trained and shipped, then published; teaching and field sensing branch off."><svg id="dagsvg"></svg></div>
   <p class="cap">How my work fits together, drawn as a data-lineage graph. Select a stage to jump to it.</p>
+  <div class="toc" role="navigation" aria-label="Contents"><h2>Contents</h2><ol>
+   <li><a href="#mlops"><b>What I build</b><span class="dots"></span><span class="d">production work, select any piece</span></a></li>
+   <li><a href="#writing"><b>Writing</b><span class="dots"></span><span class="d">articles on MLOps and data versioning</span></a></li>
+   <li><a href="#projects"><b>Open source</b><span class="dots"></span><span class="d">tools and side projects</span></a></li>
+   <li><a href="#work"><b>Experience</b><span class="dots"></span><span class="d">roles and stack</span></a></li>
+   <li><a href="#education"><b>Education</b><span class="dots"></span><span class="d">degrees and certification</span></a></li>
+   <li><a href="#contact"><b>Contact</b><span class="dots"></span><span class="d">get in touch</span></a></li>
+  </ol></div>
  </div>
 </header>
 
@@ -148,25 +166,6 @@ footer small{display:block;margin-top:28px;opacity:.75}
  </div>
 </section>
 
-<section class="band" id="research">
- <div class="wrap">
-  <h2>Leaky splits are common, and checking for them belongs in the commit</h2>
-  <p class="sub">Research on train/test leakage, measured across four domains with an open-source tool. Short paper, preprint in preparation.</p>
-  <div class="paper">
-   <div>
-    <h3>Catch Leaks at Commit Time: Dataset Versioning with Built-in Split Hygiene</h3>
-    <ul class="find">
-     <li><strong>24 near-duplicate test images</strong> are still in ciFAIR-10, the de-duplicated CIFAR-10; an independent pixel-correlation rater agrees on 28 of 29 flagged pairs.</li>
-     <li><strong>4 source recordings</strong> sit in two of ESC-50's five official folds, each under two different labels.</li>
-     <li><strong>Random window splits</strong> on UCI HAR report 2.3% error where holding out subjects gives 6.8%.</li>
-     <li><strong>Duplicates matter as much as the model memorises:</strong> removing them costs a regularised CNN under one point on the affected images and a 1-nearest-neighbour model 32.</li>
-    </ul>
-    <div class="links"><a class="btn" href="https://github.com/rajanalamuri/dataset-fingerprint/blob/main/benchmarks/RESULTS.md">Results and scripts</a><a class="btn" href="https://doi.org/10.5281/zenodo.24447086">Software DOI</a></div>
-   </div>
-   <div class="bars" id="bars"><h3>Accuracy: leaky split vs clean split</h3></div>
-  </div>
- </div>
-</section>
 
 <section class="band alt" id="writing">
  <div class="wrap">
@@ -195,7 +194,7 @@ footer small{display:block;margin-top:28px;opacity:.75}
     <p>A lightweight, offline annotation tool for computer-vision datasets: N-sided polygons with draggable vertices, a pixel magnifier, keyboard shortcuts and JSON export. Runs standalone in the browser or with Docker.</p>
     <div class="acts"><a href="https://github.com/rajanalamuri/polygon-annotator">GitHub</a></div></article>
    <article class="card" id="p-fingerprint"><span class="kind">Python library · Apache 2.0</span><h3>dataset-fingerprint</h3>
-    <p>A lockfile for training data. Versions any dataset (images, audio, video frames, radar, IMU, text, tables) on local disk, S3, Azure, GCS or Databricks, and checks every commit for leaky splits: copies, augmentations, look-alikes, the same recording on both sides, time overlap. Reports a leak rate you can gate CI on.</p>
+    <p>A lockfile for training data. Versions any dataset (images, audio, video frames, sensors, text, tables) on local disk, S3, Azure, GCS or Databricks, with integrity and split checks on every commit.</p>
     <pre>pip install dataset-fingerprint</pre>
     <div class="acts"><a href="https://github.com/rajanalamuri/dataset-fingerprint">GitHub</a><a href="https://pypi.org/project/dataset-fingerprint/">PyPI</a><a href="https://doi.org/10.5281/zenodo.24447086">DOI</a></div></article>
    <article class="card" id="p-manifest"><span class="kind">Reference implementation</span><h3>Dataset manifest versioning</h3>
@@ -215,9 +214,9 @@ footer small{display:block;margin-top:28px;opacity:.75}
   <div class="job"><div><h3>Senior MLOps Engineer</h3><div class="who">London · current</div></div>
    <ul>
     <li>MLOps technical lead embedded with a global automotive client: compute availability and data and training pipelines for varied AI workloads.</li>
-    <li>Multimodal image, video and audio ML infrastructure; shared embedding spaces (ImageBind) and vector retrieval on Atlas Vector Search.</li>
-    <li>Event-driven continuous-training pipelines on AWS EventBridge; dataset curation with Voxel51; MCP servers for ML tooling.</li>
-    <li>Data engineering: ingestion and processing pipelines for image, video, audio and sensor data, and data versioning for tamper-detection datasets.</li>
+    <li>Multimodal image, video and audio ML infrastructure; shared embedding spaces and vector retrieval.</li>
+    <li>Event-driven continuous-training pipelines; dataset curation; MCP servers for ML tooling.</li>
+    <li>Data engineering: ingestion and processing pipelines for image, video, audio and sensor data, and dataset versioning so every model traces back to its data.</li>
     <li>AI infrastructure: compute availability for training and inference across varied AI workloads; owns Terraform modules for AWS and GCP, Kubernetes clusters, and GitLab CI/CD for pipelines and platform code.</li>
    </ul></div>
   <div class="job"><div><h3>Cognizant</h3><div class="who">Data and ML engineering · earlier</div></div>
@@ -225,7 +224,7 @@ footer small{display:block;margin-top:28px;opacity:.75}
     <li>Built ETL and predictive-modelling pipelines.</li>
     <li>Automated incident response; resolved 45+ critical incidents and 450+ service requests.</li>
    </ul></div>
-  <div class="tags"><span>AI infrastructure</span><span>MLOps</span><span>Data engineering</span><span>Infrastructure as code</span><span>AWS</span><span>Kubernetes</span><span>Terraform</span><span>Python</span><span>MLflow</span><span>Apache Airflow</span><span>GitLab CI/CD</span><span>Docker</span><span>GCP / Vertex AI</span><span>Voxel51</span><span>Vector search</span></div>
+  <div class="tags"><span>AI infrastructure</span><span>MLOps</span><span>Data engineering</span><span>Infrastructure as code</span><span>AWS</span><span>Kubernetes</span><span>Terraform</span><span>Python</span><span>MLflow</span><span>Apache Airflow</span><span>GitLab CI/CD</span><span>Docker</span><span>GCP / Vertex AI</span><span>Vector search</span></div>
  </div>
 </section>
 
@@ -243,8 +242,8 @@ footer small{display:block;margin-top:28px;opacity:.75}
 
 <footer class="band" id="contact">
  <div class="wrap">
-  <h2>Working on training data you need to trust?</h2>
-  <p class="lead">I'm happy to talk about MLOps, dataset leakage, or trying dataset-fingerprint on your data.</p>
+  <h2>Building AI infrastructure or an ML platform?</h2>
+  <p class="lead">I'm happy to talk about AI infrastructure, MLOps and data engineering.</p>
   <div class="links"><a class="btn" href="mailto:rajanalamuri@gmail.com">rajanalamuri@gmail.com</a><a class="btn" href="https://github.com/rajanalamuri">github.com/rajanalamuri</a></div>
   <small>© 2026 Raj Alamuri</small>
  </div>
@@ -252,26 +251,21 @@ footer small{display:block;margin-top:28px;opacity:.75}
 
 <script>
 {
-const bars=[
- {t:"UCI HAR sensors",s:"random windows vs by subject, random forest",a:97.7,b:93.2},
- {t:"ESC-50 audio",s:"random files vs by source clip, logistic regression",a:63.8,b:54.7},
- {t:"CIFAR-10, 1-NN",s:"310 duplicated test images, with vs without their duplicates in train",a:96.5,b:64.8},
- {t:"CIFAR-10, small CNN",s:"same images, same comparison",a:97.3,b:96.6}];
 
 const areas=[
  {k:"tf",t:"Terraform platform",c:"1/5",r:"3/9",tag:"Infrastructure",w:["Write and own Terraform modules for the AWS and GCP infrastructure behind ML workloads","Environments, networking and compute declared as code and promoted through CI"],st:["Terraform","AWS","GCP"],l:[]},
  {k:"data",t:"Multimodal data pipelines",c:"6/11",r:"1/6",tag:"Data engineering",w:["Ingestion and processing pipelines for image, video and audio data used in training","Data processing that supports varied AI workloads"],st:["Python","AWS","Docker"],l:[]},
  {k:"cicd",t:"CI/CD for ML",c:"12/16",r:"2/6",tag:"MLOps",w:["GitLab CI/CD for pipelines, training code and platform code","Containerised jobs built once and promoted between environments"],st:["GitLab CI/CD","Docker"],l:[]},
  {k:"compute",t:"Compute for training and inference",c:"17/21",r:"1/6",tag:"AI infrastructure",w:["Compute availability for training and inference across varied AI workloads","Kubernetes clusters running ML jobs on AWS and GCP / Vertex AI"],st:["Kubernetes","AWS","Vertex AI"],l:[]},
- {k:"tamper",t:"Versioning tamper-detection datasets",c:"6/11",r:"6/9",tag:"Data engineering",w:["Dataset versioning for tamper-detection data, so every model traces back to the exact data it was trained on","Manifest-based approach, written up for Towards AI"],st:["Manifests","S3","Python"],l:[["Article","#writing"],["Manifest versioning","#p-manifest"]]},
+ {k:"version",t:"Dataset versioning",c:"6/11",r:"6/9",tag:"Data engineering",w:["Dataset versioning so every model traces back to the exact data it was trained on","Manifest-based approach, written up for Towards AI"],st:["Manifests","S3","Python"],l:[["Article","#writing"],["Manifest versioning","#p-manifest"]]},
  {k:"lead",t:"MLOps technical lead, global automotive client",c:"11/15",r:"6/9",tag:"Role",core:1,w:["Embedded with the client as their MLOps technical lead","MLOps architecture: compute availability, data and training pipelines for varied AI workloads, and the data processing around them"],st:["MLOps architecture","AWS","GCP"],l:[["Experience","#work"]]},
- {k:"embed",t:"Embedding search: ImageBind + vector retrieval",c:"15/22",r:"6/8",tag:"ML systems",w:["Shared embedding space across image, video and audio with ImageBind","Vector retrieval on MongoDB Atlas Vector Search"],st:["ImageBind","Atlas Vector Search","Python"],l:[]},
+ {k:"embed",t:"Multimodal embeddings and vector search",c:"15/22",r:"6/8",tag:"ML systems",w:["Shared embedding space across image, video and audio","Vector retrieval over those embeddings"],st:["Embeddings","Vector search","Python"],l:[]},
  {k:"mcp",t:"MCP servers for ML tooling",c:"22/25",r:"4/9",tag:"Developer platform",w:["MCP servers that expose ML tooling and data to engineers and AI assistants"],st:["MCP","Python"],l:[]},
- {k:"ct",t:"Event-driven continuous training",c:"15/22",r:"8/11",tag:"MLOps",w:["Retraining triggered by events (new data, schedules) through AWS EventBridge","Pipelines run end to end without manual hand-offs"],st:["EventBridge","AWS","Airflow"],l:[]},
- {k:"curate",t:"Dataset curation with Voxel51",c:"6/14",r:"9/13",tag:"Data quality",w:["Curating and inspecting image and video datasets with Voxel51 (FiftyOne) before training"],st:["Voxel51","Python"],l:[]},
+ {k:"ct",t:"Event-driven continuous training",c:"15/22",r:"8/11",tag:"MLOps",w:["Retraining triggered by events such as new data or schedules","Pipelines run end to end without manual hand-offs"],st:["AWS","Event-driven","Airflow"],l:[]},
+ {k:"curate",t:"Dataset curation",c:"6/14",r:"9/13",tag:"Data quality",w:["Curating and inspecting image and video datasets before training"],st:["Python","Data quality"],l:[]},
  {k:"orch",t:"Orchestration and tracking",c:"1/5",r:"9/11",tag:"MLOps",w:["Workflow orchestration with Apache Airflow","Experiment and model tracking with MLflow"],st:["Airflow","MLflow"],l:[]},
  {k:"etl",t:"ETL and predictive models",c:"1/5",r:"11/13",tag:"Cognizant",w:["Built ETL and predictive-modelling pipelines"],st:["Python","SQL","ETL"],l:[]},
- {k:"research",t:"Leakage research and open-source tools",c:"14/22",r:"11/13",tag:"Independent",w:["Measured train/test leakage across image, audio, sensor and text benchmarks","Open-source dataset-fingerprint and Polygon Annotator"],st:["Python","PyPI"],l:[["Research","#research"],["Open source","#projects"]]},
+ {k:"oss",t:"Open-source tools and writing",c:"14/22",r:"11/13",tag:"Independent",w:["dataset-fingerprint, Polygon Annotator and VisuaLearn","Articles on dataset versioning and MLOps"],st:["Python","React","PyPI"],l:[["Open source","#projects"],["Writing","#writing"]]},
  {k:"incident",t:"Incident automation",c:"22/25",r:"9/12",tag:"Cognizant",w:["Automated incident response","Resolved 45+ critical incidents and 450+ service requests"],st:["Automation","Monitoring"],l:[]}];
 const M=document.getElementById("mosaic"),D=document.getElementById("detail");
 M.innerHTML=areas.map((a,i)=>`<button class="tile${a.core?" core":""}" id="t-${a.k}" data-k="${a.k}" aria-pressed="false" style="grid-column:${a.c};grid-row:${a.r};animation-delay:${i*45}ms">${a.t}</button>`).join("");
@@ -281,10 +275,6 @@ M.addEventListener("click",e=>{const b=e.target.closest(".tile");if(b)show(b.dat
 M.addEventListener("mouseover",e=>{const b=e.target.closest(".tile");if(b&&matchMedia("(hover:hover)").matches)show(b.dataset.k)});
 M.addEventListener("focusin",e=>{const b=e.target.closest(".tile");if(b)show(b.dataset.k)});
 show("lead");
-const B=document.getElementById("bars");
-B.insertAdjacentHTML("beforeend",bars.map(r=>`<div class="pair"><span>${r.t}: ${r.s}</span>
- <div class="row leaky"><span>Leaky</span><div class="track"><i style="width:${r.a}%"></i></div><b>${r.a}%</b></div>
- <div class="row clean"><span>Clean</span><div class="track"><i style="width:${r.b}%"></i></div><b>${r.b}%</b></div></div>`).join("")+`<div class="legend"><span>Leaky split</span><span>Clean split</span></div>`);
 
 const nodes=[
  {id:"raw",l:"Raw data",d:"cameras, mics, sensors",x:.06,y:.5,href:"#work"},
@@ -292,7 +282,7 @@ const nodes=[
  {id:"ver",l:"Version + check",d:"dataset-fingerprint",x:.47,y:.5,href:"#p-fingerprint"},
  {id:"man",l:"Manifest",d:"the first prototype",x:.47,y:.84,href:"#p-manifest"},
  {id:"trn",l:"Train + ship",d:"production MLOps",x:.69,y:.24,href:"#work"},
- {id:"pub",l:"Publish",d:"leakage research",x:.92,y:.5,href:"#research"},
+ {id:"pub",l:"Share",d:"writing, open source",x:.92,y:.5,href:"#writing"},
  {id:"teach",l:"Teach",d:"VisuaLearn",x:.69,y:.84,href:"#p-visualearn"},
  {id:"field",l:"Sense",d:"Terrin, in the field",x:.26,y:.84,href:"#p-terrin"}];
 const edges=[["raw","ann"],["ann","ver"],["raw","ver"],["man","ver"],["ver","trn"],["trn","pub"],["ver","pub"],["field","raw"],["ver","teach"]];
