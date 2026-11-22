@@ -8,13 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* VOICE personal site of an MLOps engineer: confident, exact, a little warm
+/* VOICE personal site of an MLOps engineer: confident, exact, understated
    IDEA a data-lineage graph: every project is a stage that raw data passes through on its way to a trusted model
    PICTURE large lineage DAG in the hero, each node a project, click to jump to it
-   COLOUR pale pink ground, ink, teal for the main path, claret for findings; deep brown-black at night
+   COLOUR warm white ground, near-black ink, slate blue lead, oxblood accent; graphite at night
    TYPE Libre Franklin 800 display + Libre Franklin text, JetBrains Mono for commands only
    LAYOUT laptop: name and bio across the top, graph full width under it; phone: name, graph (vertical), links */
-:root{color-scheme:light dark;--bg:light-dark(#ffe3dc,#1c1512);--ink:light-dark(#1a1817,#f6ece8);--mute:light-dark(#5b5350,#b9aaa4);--teal:light-dark(#0d7680,#4fc3c9);--claret:light-dark(#990f3d,#ff7aa2);--card:light-dark(#fff3ef,#261c18);--line:light-dark(#e7c4ba,#3d2e28);--band:light-dark(#fbd2c7,#241914)}
+:root{color-scheme:light dark;--bg:light-dark(#fbfaf7,#111214);--ink:light-dark(#16181d,#ecebe6);--mute:light-dark(#5f6168,#a3a4a8);--teal:light-dark(#22303f,#aebfd1);--claret:light-dark(#8a2b36,#e39aa4);--card:light-dark(#ffffff,#1a1c20);--line:light-dark(#e4e1da,#2c2f35);--band:light-dark(#f2f0eb,#16181b)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:72px;scroll-behavior:smooth}
@@ -38,7 +38,7 @@ h3{font-weight:700;font-size:21px;line-height:1.2;margin:4px 0 6px}
 .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .btn{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid var(--ink);border-radius:999px;text-decoration:none;font-weight:600}
 .btn:hover,.btn:focus-visible{background:var(--ink);color:var(--bg)}
-.btn.solid{background:var(--teal);border-color:var(--teal);color:#fff}
+.btn.solid{background:var(--teal);border-color:var(--teal);color:var(--bg)}
 .facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px;margin:0}
 .facts div{border-top:2px solid var(--ink);padding-top:8px}
 .facts dt{font-size:14px;color:var(--mute)}
@@ -84,13 +84,14 @@ footer .btn{border-color:var(--bg)}
 footer .btn:hover,footer .btn:focus-visible{background:var(--bg);color:var(--ink)}
 footer small{display:block;margin-top:28px;opacity:.75}
 
-.mosaic{display:grid;grid-template-columns:repeat(24,minmax(0,1fr));grid-auto-rows:46px;gap:10px;margin-top:8px}
+.mosaic{position:relative;height:clamp(560px,50vw,660px);margin-top:8px}
+.mosaic .tile{position:absolute}
 .tile{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;border-radius:10px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:clamp(14px,1.5vw,18px);line-height:1.2;color:var(--ink);cursor:pointer;transition:transform .18s,background .18s,border-color .18s,box-shadow .18s;animation:pop .5s both}
 .tile:hover,.tile:focus-visible{transform:translateY(-3px);border-color:var(--teal);box-shadow:0 6px 0 color-mix(in srgb,var(--teal) 25%,transparent)}
 .tile:focus-visible{outline:3px solid var(--claret);outline-offset:2px}
-.tile[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:#fff}
+.tile[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:var(--bg)}
 .tile.core{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.tile.core[aria-pressed=true]{background:var(--claret);border-color:var(--claret);color:#fff}
+.tile.core[aria-pressed=true]{background:var(--claret);border-color:var(--claret);color:var(--bg)}
 @keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 .detail{display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr);gap:8px 32px;margin-top:22px;padding:22px;border-radius:14px;background:var(--card);border:1px solid var(--line);min-height:180px}
 .detail h3{margin:0;font-size:24px}
@@ -102,7 +103,7 @@ footer small{display:block;margin-top:28px;opacity:.75}
 .detail .acts{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:10px}
 .detail .acts a{font-weight:700;color:var(--teal)}
 .credit{font-size:14px;color:var(--mute);margin:10px 0 0}
-@media(max-width:860px){.mosaic{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto}.tile{grid-column:auto!important;grid-row:auto!important;min-height:56px}.tile.core{grid-column:1/-1!important;order:-1}.detail{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:860px){.mosaic{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;height:auto}.mosaic .tile{position:static;min-height:56px}.tile.core{grid-column:1/-1;order:-1}.detail{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){.tile{animation:none;transition:none}}
 .toc{margin-top:40px;border-top:2px solid var(--ink);padding-top:16px}
 .toc h2{font-size:22px;margin:0 0 6px}
@@ -269,13 +270,36 @@ const areas=[
  {k:"oss",t:"Open-source tools and writing",c:"14/22",r:"11/13",tag:"Independent",w:["dataset-fingerprint, Polygon Annotator and VisuaLearn","Articles on dataset versioning and MLOps"],st:["Python","React","PyPI"],l:[["Open source","#projects"],["Writing","#writing"]]},
  {k:"incident",t:"Incident automation",c:"22/25",r:"9/12",tag:"Cognizant",w:["Automated incident response","Resolved 45+ critical incidents and 450+ service requests"],st:["Automation","Monitoring"],l:[]}];
 const M=document.getElementById("mosaic"),D=document.getElementById("detail");
-M.innerHTML=areas.map((a,i)=>`<button class="tile${a.core?" core":""}" id="t-${a.k}" data-k="${a.k}" aria-pressed="false" style="grid-column:${a.c};grid-row:${a.r};animation-delay:${i*45}ms">${a.t}</button>`).join("");
+M.innerHTML=areas.map((a,i)=>`<button class="tile${a.core?" core":""}" id="t-${a.k}" data-k="${a.k}" aria-pressed="false" style="animation-delay:${i*45}ms">${a.t}</button>`).join("");
 const show=k=>{const a=areas.find(x=>x.k===k);M.querySelectorAll(".tile").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===k));
  D.innerHTML=`<div><span class="tag">${a.tag}</span><h3>${a.t}</h3><div class="stack-tags">${a.st.map(x=>`<span>${x}</span>`).join("")}</div></div><div><ul>${a.w.map(x=>`<li>${x}</li>`).join("")}</ul>${a.l.length?`<div class="acts">${a.l.map(([n,h])=>`<a href="${h}">${n}</a>`).join("")}</div>`:""}</div>`};
 M.addEventListener("click",e=>{const b=e.target.closest(".tile");if(b)show(b.dataset.k)});
 M.addEventListener("mouseover",e=>{const b=e.target.closest(".tile");if(b&&matchMedia("(hover:hover)").matches)show(b.dataset.k)});
 M.addEventListener("focusin",e=>{const b=e.target.closest(".tile");if(b)show(b.dataset.k)});
 show("lead");
+const area=a=>{const[c0,c1]=a.c.split("/").map(Number),[r0,r1]=a.r.split("/").map(Number);return (c1-c0)*(r1-r0)};
+const squarify=(items,x,y,w,h,out)=>{
+ if(!items.length)return;
+ const total=items.reduce((t,i)=>t+i.v,0),scale=w*h/total;
+ let row=[],rest=items.slice();const side=()=>Math.min(w,h);
+ const worst=(r,s)=>{const sum=r.reduce((t,i)=>t+i.v*scale,0),mx=Math.max(...r.map(i=>i.v*scale)),mn=Math.min(...r.map(i=>i.v*scale));return Math.max(s*s*mx/(sum*sum),sum*sum/(s*s*mn))};
+ while(rest.length){const nxt=rest[0];if(!row.length||worst(row.concat(nxt),side())<=worst(row,side())){row.push(nxt);rest.shift()}else break}
+ const sum=row.reduce((t,i)=>t+i.v*scale,0);
+ if(w>=h){const cw=sum/h;let yy=y;row.forEach(i=>{const ih=i.v*scale/cw;out.push({k:i.k,x,y:yy,w:cw,h:ih});yy+=ih});squarify(rest,x+cw,y,w-cw,h,out)}
+ else{const rh=sum/w;let xx=x;row.forEach(i=>{const iw=i.v*scale/rh;out.push({k:i.k,x:xx,y,w:iw,h:rh});xx+=iw});squarify(rest,x,y+rh,w,h-rh,out)}
+};
+const order=["lead","data","tf","curate","compute","ct","cicd","version","mcp","embed","oss","incident","collect","orch","etl"];
+const lay=()=>{
+ const wide=M.clientWidth>=860-0&&matchMedia("(min-width:861px)").matches;
+ M.querySelectorAll(".tile").forEach(b=>{if(!wide){b.style.left=b.style.top=b.style.width=b.style.height=b.style.fontSize=""}});
+ if(!wide)return;
+ const W=M.clientWidth,H=M.clientHeight,g=5,out=[];
+ const items=order.map(k=>({k,v:area(areas.find(a=>a.k===k))})).sort((a,b)=>b.v-a.v);
+ squarify(items,0,0,W,H,out);
+ out.forEach(o=>{const b=document.getElementById("t-"+o.k);Object.assign(b.style,{left:(o.x+g)+"px",top:(o.y+g)+"px",width:(o.w-2*g)+"px",height:(o.h-2*g)+"px",fontSize:o.w<150?"14px":""})});
+};
+const mro=new ResizeObserver(lay);mro.observe(M);
+
 
 const nodes=[
  {id:"raw",l:"Raw data",d:"cameras, mics, sensors",x:.06,y:.5,href:"#work"},
@@ -305,8 +329,8 @@ const draw=()=>{
  const pulse=narrow?"":`<circle class="pulse" r="6" fill="var(--claret)"><animateMotion dur="7s" repeatCount="indefinite"><mpath href="#e-raw-ann"/></animateMotion></circle>`;
  const nd=nodes.map(n=>{const p=pos[n.id];return `<a href="${n.href}" aria-label="${n.l}: ${n.d}"><g transform="translate(${p.x-nw/2},${p.y-nh/2})">
   <rect width="${nw}" height="${nh}" rx="12" fill="${n.main?"var(--teal)":"var(--card)"}" stroke="${n.main?"var(--teal)":"var(--ink)"}" stroke-width="${n.main?0:1.5}"/>
-  <text x="14" y="24" font-weight="800" font-size="15" fill="${n.main?"#fff":"var(--ink)"}">${n.l}</text>
-  <text x="14" y="43" font-size="13.5" fill="${n.main?"#fff":"var(--mute)"}">${n.d}</text></g></a>`}).join("");
+  <text x="14" y="24" font-weight="800" font-size="15" fill="var(--ink)">${n.l}</text>
+  <text x="14" y="43" font-size="13.5" fill="var(--mute)">${n.d}</text></g></a>`}).join("");
  s.setAttribute("viewBox",`0 0 ${W} ${H}`);
  s.innerHTML=ed+pulse+nd;
  box.style.minHeight=narrow?"560px":"";
