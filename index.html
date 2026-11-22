@@ -90,12 +90,14 @@ footer small{display:block;margin-top:28px;opacity:.75}
 .tile:hover,.tile:focus-visible{transform:translateY(-3px);border-color:var(--teal);box-shadow:0 6px 0 color-mix(in srgb,var(--teal) 25%,transparent)}
 .tile:focus-visible{outline:3px solid var(--claret);outline-offset:2px}
 .tile[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:#fff}
-.tile.core{background:var(--ink);color:var(--bg);border-color:var(--ink);font-size:14px}
+.tile.core{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .tile.core[aria-pressed=true]{background:var(--claret);border-color:var(--claret);color:#fff}
 @keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 .detail{display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr);gap:8px 32px;margin-top:22px;padding:22px;border-radius:14px;background:var(--card);border:1px solid var(--line);min-height:180px}
 .detail h3{margin:0;font-size:24px}
 .detail .tag{font-size:14px;color:var(--teal);font-weight:700}
+.stack-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.stack-tags span{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:13.5px}
 .detail ul{margin:0;padding-left:1.1em}
 .detail li{margin-bottom:6px}
 .detail .acts{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:10px}
@@ -109,7 +111,7 @@ footer small{display:block;margin-top:28px;opacity:.75}
 </style>
 </head>
 <body>
-<nav><div class="wrap"><b>Raj Alamuri</b><a href="#mlops">MLOps</a><a href="#research">Research</a><a href="#writing">Writing</a><a href="#projects">Open source</a><a href="#work">Experience</a><a href="#education">Education</a><a href="#contact">Contact</a></div></nav>
+<nav><div class="wrap"><b>Raj Alamuri</b><a href="#mlops">Work</a><a href="#research">Research</a><a href="#writing">Writing</a><a href="#projects">Open source</a><a href="#work">Experience</a><a href="#education">Education</a><a href="#contact">Contact</a></div></nav>
 
 <header class="band">
  <div class="wrap">
@@ -139,11 +141,10 @@ footer small{display:block;margin-top:28px;opacity:.75}
 
 <section class="band alt" id="mlops">
  <div class="wrap">
-  <h2>The model is the smallest box</h2>
-  <p class="sub">In a real ML system, the training code is a sliver of the work. Everything around it is where I spend my time. Select an area to see what I do there.</p>
-  <div class="mosaic" id="mosaic" role="group" aria-label="Areas of an ML system"></div>
+  <h2>What I build</h2>
+  <p class="sub">Production work across AI infrastructure, MLOps and data engineering, laid out around the role at its centre. Select a piece of work for what it involved and the stack.</p>
+  <div class="mosaic" id="mosaic" role="group" aria-label="Pieces of work"></div>
   <div class="detail" id="detail" aria-live="polite"></div>
-  <p class="credit">After the diagram in Sculley et al., "Hidden Technical Debt in Machine Learning Systems", NeurIPS 2015.</p>
  </div>
 </section>
 
@@ -258,27 +259,28 @@ const bars=[
  {t:"CIFAR-10, small CNN",s:"same images, same comparison",a:97.3,b:96.6}];
 
 const areas=[
- {k:"config",t:"Configuration",c:"1/5",r:"3/10",tag:"Infrastructure as code",w:["Terraform modules for AWS and GCP that I write and own","Pipelines, environments and releases declared in GitLab CI/CD","Dataset versions described by a manifest, not copied by hand"],l:[["Manifest versioning","#p-manifest"]]},
- {k:"collect",t:"Data collection",c:"6/11",r:"1/6",tag:"Data engineering",w:["Ingestion and processing pipelines for image, video, audio and sensor data","Field devices that buffer readings offline and sync in batches (Terrin)"],l:[["Terrin","#p-terrin"]]},
- {k:"test",t:"Testing and debugging",c:"12/16",r:"2/6",tag:"Quality gates",w:["Unit, integration and security test suites in CI","Integration tests against S3, Azure and GCS emulators","A leak-rate threshold that fails the build"],l:[["dataset-fingerprint","#p-fingerprint"]]},
- {k:"resource",t:"Resource management",c:"17/21",r:"1/6",tag:"AI infrastructure",w:["Compute availability for training and inference across varied AI workloads","Kubernetes clusters for ML jobs","Capacity on AWS and GCP / Vertex AI"],l:[]},
- {k:"verify",t:"Data verification",c:"6/11",r:"6/9",tag:"Data quality",w:["Train/test leakage checks at commit time: copies, augmentations, look-alikes, shared recordings, time overlap","Byte-level integrity checks that catch a single changed pixel"],l:[["dataset-fingerprint","#p-fingerprint"],["Research","#research"]]},
- {k:"core",t:"ML code",c:"12/14",r:"6/8",tag:"The small part",core:1,w:["The model and its training loop: important, and a small fraction of a production system","Everything else on this map decides whether it can be trusted, reproduced and run"],l:[]},
- {k:"analysis",t:"Model analysis",c:"15/22",r:"6/8",tag:"Evaluation",w:["Measuring how much leakage inflates scores: sensors, audio, images, text","Evaluating on clean, group-aware splits"],l:[["Research","#research"]]},
- {k:"serve",t:"Serving infrastructure",c:"22/25",r:"4/9",tag:"Retrieval and serving",w:["Vector retrieval on shared embedding spaces (ImageBind, Atlas Vector Search)","MCP servers that put ML tooling in front of engineers"],l:[]},
- {k:"process",t:"Process management",c:"15/22",r:"8/11",tag:"Orchestration",w:["Event-driven continuous-training pipelines on AWS EventBridge","Workflow orchestration with Apache Airflow"],l:[]},
- {k:"feature",t:"Feature engineering",c:"6/14",r:"9/13",tag:"Representations",w:["Shared multimodal embedding spaces across image, video and audio","Processing raw sensor streams into model-ready windows"],l:[]},
- {k:"auto",t:"Automation",c:"1/5",r:"10/12",tag:"CI/CD",w:["Continuous training and delivery pipelines","Releases built once, attested and published without stored secrets"],l:[]},
- {k:"meta",t:"Metadata management",c:"14/22",r:"11/13",tag:"Lineage",w:["Dataset manifests, fingerprints and lineage linking each model to its exact data","Experiment tracking with MLflow; dataset curation with Voxel51"],l:[["dataset-fingerprint","#p-fingerprint"]]},
- {k:"monitor",t:"Monitoring",c:"22/25",r:"9/12",tag:"Operations",w:["Drift checks: verify a dataset still matches its manifest","Automated incident response: 45+ critical incidents and 450+ service requests resolved"],l:[]}];
+ {k:"tf",t:"Terraform platform",c:"1/5",r:"3/9",tag:"Infrastructure",w:["Write and own Terraform modules for the AWS and GCP infrastructure behind ML workloads","Environments, networking and compute declared as code and promoted through CI"],st:["Terraform","AWS","GCP"],l:[]},
+ {k:"data",t:"Multimodal data pipelines",c:"6/11",r:"1/6",tag:"Data engineering",w:["Ingestion and processing pipelines for image, video and audio data used in training","Data processing that supports varied AI workloads"],st:["Python","AWS","Docker"],l:[]},
+ {k:"cicd",t:"CI/CD for ML",c:"12/16",r:"2/6",tag:"MLOps",w:["GitLab CI/CD for pipelines, training code and platform code","Containerised jobs built once and promoted between environments"],st:["GitLab CI/CD","Docker"],l:[]},
+ {k:"compute",t:"Compute for training and inference",c:"17/21",r:"1/6",tag:"AI infrastructure",w:["Compute availability for training and inference across varied AI workloads","Kubernetes clusters running ML jobs on AWS and GCP / Vertex AI"],st:["Kubernetes","AWS","Vertex AI"],l:[]},
+ {k:"tamper",t:"Versioning tamper-detection datasets",c:"6/11",r:"6/9",tag:"Data engineering",w:["Dataset versioning for tamper-detection data, so every model traces back to the exact data it was trained on","Manifest-based approach, written up for Towards AI"],st:["Manifests","S3","Python"],l:[["Article","#writing"],["Manifest versioning","#p-manifest"]]},
+ {k:"lead",t:"MLOps technical lead, global automotive client",c:"11/15",r:"6/9",tag:"Role",core:1,w:["Embedded with the client as their MLOps technical lead","MLOps architecture: compute availability, data and training pipelines for varied AI workloads, and the data processing around them"],st:["MLOps architecture","AWS","GCP"],l:[["Experience","#work"]]},
+ {k:"embed",t:"Embedding search: ImageBind + vector retrieval",c:"15/22",r:"6/8",tag:"ML systems",w:["Shared embedding space across image, video and audio with ImageBind","Vector retrieval on MongoDB Atlas Vector Search"],st:["ImageBind","Atlas Vector Search","Python"],l:[]},
+ {k:"mcp",t:"MCP servers for ML tooling",c:"22/25",r:"4/9",tag:"Developer platform",w:["MCP servers that expose ML tooling and data to engineers and AI assistants"],st:["MCP","Python"],l:[]},
+ {k:"ct",t:"Event-driven continuous training",c:"15/22",r:"8/11",tag:"MLOps",w:["Retraining triggered by events (new data, schedules) through AWS EventBridge","Pipelines run end to end without manual hand-offs"],st:["EventBridge","AWS","Airflow"],l:[]},
+ {k:"curate",t:"Dataset curation with Voxel51",c:"6/14",r:"9/13",tag:"Data quality",w:["Curating and inspecting image and video datasets with Voxel51 (FiftyOne) before training"],st:["Voxel51","Python"],l:[]},
+ {k:"orch",t:"Orchestration and tracking",c:"1/5",r:"9/11",tag:"MLOps",w:["Workflow orchestration with Apache Airflow","Experiment and model tracking with MLflow"],st:["Airflow","MLflow"],l:[]},
+ {k:"etl",t:"ETL and predictive models",c:"1/5",r:"11/13",tag:"Cognizant",w:["Built ETL and predictive-modelling pipelines"],st:["Python","SQL","ETL"],l:[]},
+ {k:"research",t:"Leakage research and open-source tools",c:"14/22",r:"11/13",tag:"Independent",w:["Measured train/test leakage across image, audio, sensor and text benchmarks","Open-source dataset-fingerprint and Polygon Annotator"],st:["Python","PyPI"],l:[["Research","#research"],["Open source","#projects"]]},
+ {k:"incident",t:"Incident automation",c:"22/25",r:"9/12",tag:"Cognizant",w:["Automated incident response","Resolved 45+ critical incidents and 450+ service requests"],st:["Automation","Monitoring"],l:[]}];
 const M=document.getElementById("mosaic"),D=document.getElementById("detail");
 M.innerHTML=areas.map((a,i)=>`<button class="tile${a.core?" core":""}" id="t-${a.k}" data-k="${a.k}" aria-pressed="false" style="grid-column:${a.c};grid-row:${a.r};animation-delay:${i*45}ms">${a.t}</button>`).join("");
 const show=k=>{const a=areas.find(x=>x.k===k);M.querySelectorAll(".tile").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===k));
- D.innerHTML=`<div><span class="tag">${a.tag}</span><h3>${a.t}</h3></div><div><ul>${a.w.map(x=>`<li>${x}</li>`).join("")}</ul>${a.l.length?`<div class="acts">${a.l.map(([n,h])=>`<a href="${h}">${n}</a>`).join("")}</div>`:""}</div>`};
+ D.innerHTML=`<div><span class="tag">${a.tag}</span><h3>${a.t}</h3><div class="stack-tags">${a.st.map(x=>`<span>${x}</span>`).join("")}</div></div><div><ul>${a.w.map(x=>`<li>${x}</li>`).join("")}</ul>${a.l.length?`<div class="acts">${a.l.map(([n,h])=>`<a href="${h}">${n}</a>`).join("")}</div>`:""}</div>`};
 M.addEventListener("click",e=>{const b=e.target.closest(".tile");if(b)show(b.dataset.k)});
 M.addEventListener("mouseover",e=>{const b=e.target.closest(".tile");if(b&&matchMedia("(hover:hover)").matches)show(b.dataset.k)});
 M.addEventListener("focusin",e=>{const b=e.target.closest(".tile");if(b)show(b.dataset.k)});
-show("core");
+show("lead");
 const B=document.getElementById("bars");
 B.insertAdjacentHTML("beforeend",bars.map(r=>`<div class="pair"><span>${r.t}: ${r.s}</span>
  <div class="row leaky"><span>Leaky</span><div class="track"><i style="width:${r.a}%"></i></div><b>${r.a}%</b></div>
